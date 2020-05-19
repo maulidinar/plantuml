@@ -1,0 +1,33 @@
+@startuml APIClassDiagram
+Base *-- Model
+Base *-- Controller
+Base *-- Service
+Model <|-- Manager
+Model <|-- Repository
+@enduml
+
+@startuml ManagerAPIClassDiagram
+Manager <|-- UserManager
+Manager <|-- OrderManager
+Manager <|-- InventoryManager
+Manager <|-- MenuManager
+@enduml
+
+@startuml RepositoryAPIClassDiagram
+Repository <|-- UserRepository
+Repository <|-- OrderRepository
+Repository <|-- InventoryRepository
+Repository <|-- MenuRepository
+@enduml
+
+@startuml ControllerAPIClassDiagram
+Controller <|-- UserController
+Controller <|-- OrderController
+Controller <|-- InventoryController
+Controller <|-- MenuController
+@enduml
+
+@startuml ServiceAPIClassDiagram
+Service <|-- DatabaseService
+Service <|-- PaymentService
+@enduml

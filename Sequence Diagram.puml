@@ -1,0 +1,19 @@
+@startuml SequenceDiagram
+
+actor Customer 
+participant App
+database Database
+actor Cheff
+
+Customer -> App :start()
+App -> Database :getMenu()
+App <-- Database :Category, Name, Price
+Customer -> App :chooseMenu([name])
+Customer -> Database :insertOrder()
+Customer <- App :displayBill()
+Customer -> App :pay()
+App -> Database :getOrder()
+App <-- Database :Order, Table
+App -> Cheff :displayOrder()
+
+@enduml

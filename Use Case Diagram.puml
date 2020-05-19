@@ -1,0 +1,23 @@
+@startuml UseCaseDiagram
+left to right direction
+
+actor Admin
+actor Customer
+actor Cashier
+actor Cheff
+actor Waiter
+
+rectangle App {
+    Customer -- (Menu) :Choose Menu
+    (Menu) --  Admin :Create, Update, Delete
+
+    Customer -- (Order) :Make Order
+    (Order) -- Cheff :Prepare Order
+
+    Customer -- (Pay) :Pay Order
+    (Pay) -- Cashier :Audit Payment
+
+    Waiter -- (Order) :Serve Order
+}
+
+@enduml

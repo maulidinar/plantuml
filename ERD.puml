@@ -1,0 +1,58 @@
+@startuml ERD
+
+
+entity user {
+    id: number <<PK>>
+    --
+    name: string
+}
+
+entity user_role {
+    id: number <<PK>>
+    --
+    user_id: number <<FK>>
+    role: string
+}
+
+entity user_account {
+    id: number <<PK>>
+    --
+    user_id: number <<FK>>
+}
+
+entity order {
+    id: number <<PK>>
+    --
+    created_at: date
+    user_id: number <<FK>>
+    total: number
+    cancelled_at: date
+}
+
+entity order_item {
+    order_id: number <<FK>>
+    item_id: number <<FK>>
+}
+
+entity item {
+    id: number <<PK>>
+    --
+    category_id: number <<FK>>
+    name: string
+    price: number
+}
+
+entity category {
+    id: number <<PK>>
+    --
+    name: string
+}
+
+user }|--|| user_role
+user }|--o{ user_account
+user }|--o{ order
+order ||--|{ order_item
+item }|--o{ order_item
+category ||--|{ item
+
+@enduml

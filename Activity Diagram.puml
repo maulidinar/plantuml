@@ -1,0 +1,74 @@
+@startuml CustomerActivityUml
+|Customer|
+start
+:Choose Menu;
+:Order;
+
+|App|
+:Creating Bill;
+
+|Customer|
+:Choose Payment;
+
+if(Using cash) then (yes)
+    :Pay to Cashier;
+
+|App|
+else (no)
+    :Request Payment;
+
+|Customer|
+    :Pay;
+
+|App|
+    :Validate Payment;
+endif
+
+|Kitchen|
+:Process Order;
+
+|Waiters|
+:Deliver Order to Customer;
+
+|Customer|
+:Get Order;
+stop
+@enduml
+
+@startuml AdminActivityUml
+start
+:login;
+    if(Create Product?) then (yes)
+        if(Create Category?) then (yes)
+            :Insert Category;
+        else (no)
+            :Select Category;
+        endif
+        :Insert Name;
+        :Inser Price;
+    else if(Update Product?) then (yes)
+        if(Update Category?) then (yes)
+            :Update Category;
+        else (no)
+            :Select Category;
+        endif
+        if(Update Name?) then (yes)
+            :Update Name;
+            if(Update Price?) then (yes)
+                :Update Price;
+            endif
+        else (no)
+            :Select Name;
+            :Update Price;
+        endif
+    else if(Delete Product?) then (yes)
+        if(Delete Catogory?) then (yes)
+            :Delete Category;
+        else (no)
+            :Select Category;
+            :Delete Name;
+        endif
+    endif
+:logout;
+stop
+@enduml
