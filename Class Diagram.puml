@@ -1,33 +1,81 @@
 @startuml APIClassDiagram
-Base *-- Model
-Base *-- Controller
-Base *-- Service
-Model <|-- Manager
-Model <|-- Repository
+
+Server *-- Database
+Server *-- Controller
+Server *-- Middleware 
+Controller *-- Model
+Model *-- Query 
+
+class Server {
+    - server: Express
+    - database: Database
+    + Server(): Server
+}
+
+class Database {
+    - config(): void
+    + initialize(): void
+    + synchronize(): void
+}
+
+class Middleware {
+    - AdminAuth(): void
+    + Middleware(): Middleware
+}
+
 @enduml
 
 @startuml ManagerAPIClassDiagram
-Manager <|-- UserManager
-Manager <|-- OrderManager
-Manager <|-- InventoryManager
-Manager <|-- MenuManager
+Model <|-- UserModel
+Model <|-- OrderModel
+Model <|-- ItemModel
+
+abstract class Model {
+
+}
+
+class UserModel {
+
+}
+
+class OrderModel {
+
+}
+
+class ItemModel {
+
+}
+
 @enduml
 
 @startuml RepositoryAPIClassDiagram
-Repository <|-- UserRepository
-Repository <|-- OrderRepository
-Repository <|-- InventoryRepository
-Repository <|-- MenuRepository
+Query <|-- UserQuery
+Query <|-- OrderQuery
+Query <|-- ItemQuery
 @enduml
 
 @startuml ControllerAPIClassDiagram
 Controller <|-- UserController
 Controller <|-- OrderController
-Controller <|-- InventoryController
-Controller <|-- MenuController
-@enduml
+Controller <|-- ItemController
 
-@startuml ServiceAPIClassDiagram
-Service <|-- DatabaseService
-Service <|-- PaymentService
+abstract class Controller {
+    # initialize(): void
+    # routes(): object
+    + Controller(): Controller
+}
+
+class UserController {
+    + login(): void
+    + setToken(): void
+}
+
+class OrderController {
+
+}
+
+class ItemController {
+
+}
+
 @enduml

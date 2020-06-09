@@ -1,23 +1,33 @@
 @startuml ERD
 
-
-entity user {
-    id: number <<PK>>
-    --
-    name: string
+enum ROLES {
+    SUPERADMIN
+    ADMIN
+    TABLE
 }
 
-entity user_role {
-    id: number <<PK>>
+enum ORDER_STATUS {
+    PENDING
+    CHECKOUT
+    PAID
+    QUEUE
+    PROCESSING
+    READY
+    RESOLVED
+}
+
+entity user {
+    id: int <<PK>>
     --
-    user_id: number <<FK>>
-    role: string
+    name: varchar
+    role: ROLES
 }
 
 entity user_account {
-    id: number <<PK>>
+    user_id: number <<PK>>
     --
-    user_id: number <<FK>>
+    password: string
+    token: string
 }
 
 entity order {
@@ -26,6 +36,7 @@ entity order {
     created_at: date
     user_id: number <<FK>>
     total: number
+    status: ORDER_STATUS
     cancelled_at: date
 }
 
@@ -39,20 +50,21 @@ entity item {
     --
     category_id: number <<FK>>
     name: string
+    description: string
     price: number
 }
 
 entity category {
     id: number <<PK>>
     --
+    category_id: number
     name: string
 }
 
-user }|--|| user_role
-user }|--o{ user_account
+user ||--|| user_account
 user }|--o{ order
-order ||--|{ order_item
-item }|--o{ order_item
+order ||--o{ order_item
+item ||--o{ order_item
 category ||--|{ item
 
 @enduml
