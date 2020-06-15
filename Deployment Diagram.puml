@@ -1,0 +1,26 @@
+@startuml DeploymentDiagram
+
+node WebServer <<Device>> {
+    node Node.js <<Execution Environment>> {
+        component Middleware
+        component Routes
+        artifact index.js
+        artifact server.js
+    }
+}
+
+node Android <<Device>> {
+    component Flutter <<UI>>
+}
+
+database PostgreSQL <<Database>>
+
+node PaymentService {
+
+}
+
+PostgreSQL -- WebServer:<<ORM>>
+Android -- WebServer :<<HTTP:8080>>
+WebServer -- PaymentService : <<HTTP:8080>>
+
+@enduml
