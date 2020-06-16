@@ -4,6 +4,9 @@ node WebServer <<Device>> {
     node Node.js <<Execution Environment>> {
         component Middleware
         component Routes
+        component Services
+        component Managers
+        component Queries
         artifact index.js
         artifact server.js
     }
@@ -19,8 +22,8 @@ node PaymentService {
 
 }
 
-PostgreSQL -- WebServer:<<ORM>>
-Android -- WebServer :<<HTTP:8080>>
-WebServer -- PaymentService : <<HTTP:8080>>
+WebServer -right- PostgreSQL:<<ORM>>
+WebServer -- Android :<<HTTP:8080>>
+WebServer -left- PaymentService :<<HTTP:8080>>
 
 @enduml
