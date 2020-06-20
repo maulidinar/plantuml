@@ -22,10 +22,13 @@ else (no)
 
 |App|
     :Validate Payment;
-endif
+        if(validate success) then (yes)
 
 |Kitchen|
-:Process Order;
+    :Process Order;
+else (no)
+    :Pay to Cashier;
+endif
 
 |Waiters|
 :Deliver Order to Customer;
